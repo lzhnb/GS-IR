@@ -13,9 +13,8 @@ We present GS-IR that models a scene as a set of 3D Gaussians to achieve physica
   <img width="60%" src="assets/ficus.gif"/>
 </p>
 
-<!-- <p align="center"> All Code will be released soon... 🏗️ 🚧 🔨</p> -->
-
 > Welcome to our new work [Analytic-Splatting](https://github.com/lzhnb/Analytic-Splatting). We achieve anti-aliasing and excellent detail fidelity through analytical integral approximation.
+> **Analytic-Splatting** was accepted by **ECCV 2024**!
 
 ## Installation
 create the basic environment
@@ -199,6 +198,33 @@ python relight.py \
 --gamma
 ```
 > set `--gamma` to enable **linear_to_sRGB** will cause better relighting results but worse novel view synthesis results
+
+## Demo Implementation
+In addition, you can conduct the following script and get the same results of [demo](https://lzhnb.github.io/project-pages/assets/gs-ir/garden/relighting.mp4) in project page:
+```sh
+# Stay point light and move camera
+python shadow_map.py -m output/garden-linear/ \
+-s dataset/nerf_data/nerf_real_360/garden/ \
+--checkpoint output/garden-linear/chkpnt35000.pth \
+--frames 480 \
+--fps 60 \
+--start 158 \
+--end 184 \
+--linear \
+--loop
+
+# Stay camera and move point light
+python light_move.py -m output/garden-linear/ \
+-s dataset/nerf_data/nerf_real_360/garden/ \
+--checkpoint output/garden-linear/chkpnt35000.pth \
+--frames 240 \
+--fps 30 \
+--start 158 \
+--end 184 \
+--loop --\
+linear
+```
+
 
 ## Acknowledge
 - [gaussian-splatting](https://github.com/graphdeco-inria/gaussian-splatting)
